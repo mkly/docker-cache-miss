@@ -1,0 +1,17 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.12
+      - run: docker build . --build-arg BUILD_NUMBER=123
+      - run: docker build . --build-arg BUILD_NUMBER=124
+
+workflows:
+  build:
+    jobs:
+      - test
